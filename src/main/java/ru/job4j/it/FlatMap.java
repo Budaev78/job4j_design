@@ -33,7 +33,6 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public T next() {
-        selectCurrentIterator();
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
