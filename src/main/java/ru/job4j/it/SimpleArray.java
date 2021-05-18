@@ -7,18 +7,29 @@ public class SimpleArray<T> implements Simple<T> {
 
     private T[] value;
 
+    private int position = 0;
+
     public SimpleArray() {
         value = (T[]) new Object[0];
+    }
+
+    public static void main(String[] args) {
+        SimpleArray<String> array = new SimpleArray<>();
+        array.add("first");
+        System.out.println(Objects.checkIndex(0, array.size()));
     }
 
     @Override
     public boolean add(T model) {
         try {
-            T[] temp = value;
-            value = (T[]) new Object[temp.length + 1];
-            System.arraycopy(temp, 0, value, 0, temp.length);
-            value[value.length - 1] = model;
-            return true;
+            value = (T[]) new Object[3];
+            if (position == value.length) { // не могу понять почему он здесь сбрасывает увеличенный массив
+                T[] temp = value;
+                value = (T[]) new Object[temp.length + temp.length / 2];
+                System.arraycopy(temp, 0, value, 0, temp.length);
+                return true;
+            }
+            this.value[position++] = model;
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
@@ -45,6 +56,11 @@ public class SimpleArray<T> implements Simple<T> {
     @Override
     public T get(int index) {
         return value[index];
+    }
+
+    @Override
+    public int size() {
+        return value.length;
     }
 
     @Override

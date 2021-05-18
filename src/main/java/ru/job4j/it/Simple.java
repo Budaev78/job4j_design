@@ -5,4 +5,5 @@ public interface Simple<T> extends Iterable<T> {
     void set(int index, T model);
     void remove(int index);
     T get(int index);
+    int size();
 }
