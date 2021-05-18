@@ -23,4 +23,9 @@ public class RoleStore implements Store<Role> {
     public Role findById(String id) {
         return rol.findById(id);
     }
+
+    @Override
+    public int findByIndex(String id) {
+        return rol.findByIndex(id);
+    }
 }
