@@ -6,4 +6,5 @@ public interface Simple<T> extends Iterable<T> {
     void remove(int index);
     T get(int index);
     int size();
+    int findByIndex(T model);
 }

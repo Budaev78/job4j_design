@@ -13,14 +13,11 @@ public class SimpleArray<T> implements Simple<T> {
         value = (T[]) new Object[0];
     }
 
-    public static void main(String[] args) {
-        SimpleArray<String> array = new SimpleArray<>();
-        array.add("first");
-        System.out.println(Objects.checkIndex(0, array.size()));
-    }
-
     @Override
     public boolean add(T model) {
+        SimpleArray<T> simpleArray = new SimpleArray<>();
+        int index = simpleArray.findByIndex(model);
+        Objects.checkIndex(index, simpleArray.size());
         try {
             value = (T[]) new Object[3];
             if (position == value.length) { // не могу понять почему он здесь сбрасывает увеличенный массив
@@ -38,11 +35,15 @@ public class SimpleArray<T> implements Simple<T> {
 
     @Override
     public void set(int index, T model) {
+        SimpleArray<T> simpleArray = new SimpleArray<>();
+        Objects.checkIndex(index, simpleArray.size());
         value[index] = model;
     }
 
     @Override
     public void remove(int index) {
+        SimpleArray<T> simpleArray = new SimpleArray<>();
+        Objects.checkIndex(index, simpleArray.size());
         try {
             T[] temp = value;
             value = (T[]) new Object[temp.length - 1];
@@ -55,12 +56,24 @@ public class SimpleArray<T> implements Simple<T> {
 
     @Override
     public T get(int index) {
+        SimpleArray<T> simpleArray = new SimpleArray<>();
+        Objects.checkIndex(index, simpleArray.size());
         return value[index];
     }
 
     @Override
     public int size() {
         return value.length;
+    }
+
+    @Override
+    public int findByIndex(T model) {
+        for (int i = 0; i < value.length; i++) {
+            if (value[i].equals(model)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     @Override
