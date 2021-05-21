@@ -14,16 +14,20 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        MemStore<T> memStore = new MemStore<T>();
-        int index = memStore.findByIndex(id);
+        int index = findByIndex(id);
+        if (index == -1) {
+            System.out.println("Вы вышли за пределы массива");
+        }
         mem.set(index, model);
         return true;
     }
 
     @Override
     public boolean delete(String id) {
-        MemStore<T> memStore = new MemStore<T>();
-        int index = memStore.findByIndex(id);
+        int index = findByIndex(id);
+        if (index == -1) {
+            System.out.println("Вы вышли за пределы массива");
+        }
         mem.remove(index);
         return true;
     }
@@ -38,13 +42,12 @@ public final class MemStore<T extends Base> implements Store<T> {
         return null;
     }
 
-    @Override
-    public int findByIndex(String id) {
+    private int findByIndex(String id) {
         for (int i = 0; i < mem.size(); i++) {
             if (mem.get(i).equals(id)) {
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 }
