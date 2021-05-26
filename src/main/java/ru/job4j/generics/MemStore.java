@@ -26,7 +26,7 @@ public final class MemStore<T extends Base> implements Store<T> {
     public boolean delete(String id) {
         int index = findByIndex(id);
         if (index == -1) {
-            System.out.println("Вы вышли за пределы массива");
+            return false;
         }
         mem.remove(index);
         return true;
