@@ -15,45 +15,40 @@ public class SimpleArray<T> implements Simple<T> {
 
     @Override
     public boolean add(T model) {
-        Objects.checkIndex(findByIndex(model), size());
         this.value[position++] = model;
         return true;
     }
 
     @Override
     public void set(int index, T model) {
-        Objects.checkIndex(index, size());
+        Objects.checkIndex(index, position);
         value[index] = model;
     }
 
     @Override
-    public void remove(int index) {
-        Objects.checkIndex(index, size());
-        try {
-            T[] temp = value;
-            value = (T[]) new Object[temp.length - 1];
-            System.arraycopy(temp, 0, value, 0, index);
-            System.arraycopy(temp, index + 1, value, index, temp.length - index - 1);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
+    public T remove(int index) {
+        Objects.checkIndex(index, position);
+        T result  = (T) value[index];
+        System.arraycopy(value, index + 1, value, index, value.length - index - 1);
+        value[value.length - 1] = null;
+        position--;
+        return result;
     }
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, size());
+        Objects.checkIndex(index, position);
         return value[index];
     }
 
     @Override
     public int size() {
-        int count = 0;
         for (T t : value) {
             if (t != null) {
-                count++;
+                position++;
             }
         }
-        return count;
+        return position;
     }
 
     @Override

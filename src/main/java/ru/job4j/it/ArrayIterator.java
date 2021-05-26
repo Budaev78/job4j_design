@@ -6,7 +6,10 @@ import java.util.NoSuchElementException;
 public class ArrayIterator<T> implements Iterator<T> {
 
     private int index = 0;
+
     private T[] values;
+
+    private int position = 0;
 
     public ArrayIterator(T[] values) {
         this.values = values;
@@ -14,13 +17,12 @@ public class ArrayIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        int count = 0;
         for (T t : values) {
             if (t != null) {
-                count++;
+                position++;
             }
         }
-        return index < count;
+        return index < position;
     }
 
     @Override
